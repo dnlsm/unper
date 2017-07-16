@@ -1,0 +1,18 @@
+<style type="text/css">
+		.table{
+			width: 40px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 50px;
+
+		}
+</style>
+
+<div>
+	<table class='table table-striped'>
+		<tr ng-repeat= '(key, val) in about'>
+			<td ng-bind = 'key + ":"'></td>
+			<td ng-bind = 'val'></td>
+		</tr>
+	</table>
+</div>

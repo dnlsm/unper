@@ -43,11 +43,11 @@ var getFile  = function (req, res, next){
 	filePath =  htdocsPath + req.url
 	fs.stat(filePath, (err, stats) => {
 			if (err){
-				console.log("Arquivo não encontrado: "+ filePath)
+				console.log("404: "+ req.url)
 				res.writeHead(404)
 			}
 			else{
-				console.log("Arquivo encontrado: "+ filePath)
+				console.log("200: "+ req.url)
 				fileStream = fs.readFileSync(filePath)
 				res.writeHead(200)
 				res.write(fileStream)
@@ -70,17 +70,15 @@ app.get('/test', (req, res, next)=>{
 }, finalize)
 
 
-app.use(express.static(htdocsPath+"/styles"));
+app.use('/styles',express.static(htdocsPath+"/styles"));
+app.use('/lib',express.static(htdocsPath+"/lib"));
 
 app.get('*.js',(req, res, next) => {
 	res.contentType('text/javascript')
 	next()
 }, [getFile, finalize])
 
-app.get('/styles/*',(req, res, next) => {
-	res.contentType('text/css')
-	next()
-}, [getFile, finalize])
+
 
 app.get('*.png', [getFile, finalize])
 app.get('*.html', [getFile, finalize])
@@ -104,9 +102,6 @@ app.get('/gpio/*', (req, res) =>{
 					(err) => {if (err) console.log(err)})
 	res.end('Pin '+req.query.pin + ' = ' + req.query.value)
 })
-
-
-console.log("oi")
 
 app.listen(port, (err) => {
 	if(err){

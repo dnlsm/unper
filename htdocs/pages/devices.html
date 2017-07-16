@@ -1,0 +1,15 @@
+<div>
+	<table>
+		<tr>
+			<th>Periferal Name</th>
+			<th>GPIO Pin</th>
+			<th>Value</th>
+		</tr>
+		<tr ng-repeat='device in devices'>
+			<td ng-bind='device.name'></td>
+			<td ng-bind='device.pin'></td>
+			<td><input ng-click='changeValue(device)' ng-model="device.value" type="checkbox"/></td>
+		</tr>
+	</table>
+	{{devices}}
+</div>

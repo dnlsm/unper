@@ -1,9 +1,24 @@
+<style type="text/css">
+	.group{
+		width: 300px;
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: 7px;
 
-	
-	<div class="home"> 
-		Login
-		<input type="text"/>
-		{{name}}
+	}
 
+</style>
+<div class="group"> 
 
+	<div class='group input-group'>
+		<span class='input-group-addon'>@</span>
+		<input class='form-control' placeholder='Username' type="text" ng-model='credentials.user'/>
 	</div>
+
+	<div class='group input-group'>
+		<input class='form-control' placeholder='Password' type="passwd" ng-model='credentials.passwd'/>
+	</div>
+	<button class="btn btn-primary" ng-disabled='!credentials.user || !credentials.passwd' ng-click='login(credentials)'>
+		Login
+	</button>
+</div>
