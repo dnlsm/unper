@@ -1,7 +1,7 @@
 const express = require('express')
 const fs = require('fs')
-const app = express();
-
+const app = express()
+const os = require('os')
 
 
 const gpioPath = '/sys/class/gpio/'
@@ -14,13 +14,19 @@ const gpioPath = '/sys/class/gpio/'
 */
 
 const port = 80;
-const projectDir = '/home/raspberry/WebServer'
+
+
+
+if (os.platform() == 'linux')	var projectDir = '/home/raspberry/WebServer/'
+else
+if (os.platform() == 'win32')	var projectDir = 'C:\\Users\\Danilo\\Google Drive\\Unper\\3-Implementação\\unper\\'
+
 const htdocsDir = 'htdocs'
 
 
 
 
-const htdocsPath = projectDir +"/" +  htdocsDir + "/";
+const htdocsPath = projectDir +  htdocsDir + "/";
 
 app.get("/", (req, res)=>{
 	res.writeHead(200, {'content-type':'text/html'})
