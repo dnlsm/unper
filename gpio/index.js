@@ -3,10 +3,10 @@ const gpioPath = '/sys/class/gpio/'
 
 var createGpio = function (pin, dir) {
 
-	var constructor = this
+	const constructor = this
 	
 
-	var writeFunc = function (value, callback) {
+	function writeFunc(value, callback) {
 		try{
 				fs.writeFileSync(this.valueFile, value)
 				console.log("%s was written to  pin %s", self.value, self.num)
@@ -20,10 +20,11 @@ var createGpio = function (pin, dir) {
 	}
 	
 
-	var readFunc = function(callback) {
+	function readFunc(callback) {
 		try{
 			var value = fs.readFileSync(this.valueFile).toString()
 			this.value = value
+			return value
 		}
 
 		catch(err){
@@ -33,21 +34,29 @@ var createGpio = function (pin, dir) {
 		if (callback) callback(undefined,value)
 	}
 
+	function isExportedFunc() {
+		try {
+			fs.statSync(this.path)
+			return true
+		}
+		catch(err){
+			return false
+		}
+	}
 
-
-	var setDirFunc = function (dir) {
-		if (isExported()){
+	function setDirFunc (dir) {
+		if (this.isExported()){
 			try {
-					fs.writeFileSync(self.dirFile, dir)
+					fs.writeFileSync(this.dirFile, dir)
 					this.dir = dir
 					if (dir == 'out' || dir == 'high' || dir == 'low') {
-						delete this.read
-						this.write = contructor.writeFunc
-
+						this.read = this.readFunc
+						this.write = this.writeFunc
 					}
 					else if (dir == 'in'){
 						delete this.write
-						this.read = constructor.readFunc
+
+						this.read = this.readFunc
 					}
 					return true
 			}
@@ -62,33 +71,17 @@ var createGpio = function (pin, dir) {
 		}
 	}
 
-
-
-	var isExportedFunc = function() {
-		try {
-			fs.statSync(this.path)
-			return true
-		}
-		catch(err){
-			return false
-		}
-	}
-
-
-
 	var exportPin = function (obj, setDirFunction) {
-		var pinPath = gpioPath + 'gpio' + obj.num + '/'
-
+		var pinPath = gpioPath + 'gpio' + obj.pin + '/'
 		try {
 				var stat = fs.statSync(pinPath)				
-				console.log('Pin exported')
+				console.log('Pin %s exported', obj.pin)
 		}
 		catch (err){
 				try {
-						fs.writeFileSync(gpioPath + 'export', obj.num)
+						fs.writeFileSync(gpioPath + 'export', obj.pin)
 				}
 				catch (err){
-						console.log(err)
 						return false
 				}
 		}
@@ -100,11 +93,15 @@ var createGpio = function (pin, dir) {
 	}
 
 
-	var product = {pin:pin}
+	let product = {	pin:pin,
+					writeFunc: writeFunc,
+					readFunc: readFunc}
 	if (exportPin(product, setDirFunc)){
+		product.isExported = isExportedFunc
 		if (product.setDir(dir)){
 			return product
 		}
+		return product
 	}
 	return undefined
 }
