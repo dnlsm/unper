@@ -70,8 +70,9 @@ app.get('/test', (req, res, next)=>{
 }, finalize)
 
 
-app.use('/styles',express.static(htdocsPath+"/styles"));
-app.use('/lib',express.static(htdocsPath+"/lib"));
+app.use('/styles',express.static(htdocsPath+"/styles"))
+app.use('/lib',express.static(htdocsPath+"/lib"))
+app.use('/js',express.static(htdocsPath+"/js"))
 
 app.get('*.js',(req, res, next) => {
 	res.contentType('text/javascript')

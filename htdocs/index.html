@@ -1,42 +1,28 @@
 <html ng-app ="myApp">
-	<style type="text/css">
-		.view{
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 20px;
-			background-color: #000000;
-			width: auto;
-			height: auto
-		}
 
-	</style>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="styles/app.css">
 
-	<link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.css">
-	<script type="text/javascript" src="/lib/angular/angular.js"></script>
-	<script type="text/javascript" src="/lib/angular/angular-route.js"></script>
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-route.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers/loginCtrl.js"></script>
+	<script src="js/controllers/aboutCtrl.js"></script>
+	<script src="js/controllers/devicesCtrl.js"></script>
 
 <body>
 
-
-
-<div>
-	<a class='btn btn-default navbar-btn' href="#"> Home</a>
-	<a class='btn btn-default navbar-btn' href="#login"> Login </a>
-	<a class='btn btn-default navbar-btn' href="#peripherals"> Peripherals </a>
-	<a class='btn btn-default navbar-btn' href="#about"> About </a>
-</div>
-
-<script type="text/javascript" src="Application.js"></script>
-
-<div class='view jumbotron' id='main'>
-	<div class='container' ng-view >
-
+	<div>
+		<a class="btn btn-default navbar-btn" href="#/"> Home</a>
+		<a class="btn btn-default navbar-btn" href="#/login"> Login </a>
+		<a class="btn btn-default navbar-btn" href="#/devices"> Devices </a>
+		<a class="btn btn-default navbar-btn" href="#/about"> About </a>
 	</div>
-</div>
 
-
-
-
+	<div class='view jumbotron' id='main'>
+		<div class='container' ng-view >
+		</div>
+	</div>
 
 </body>
 </html>
