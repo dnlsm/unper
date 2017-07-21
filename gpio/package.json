@@ -1,0 +1,19 @@
+{
+  "name": "gpio",
+  "version": "1.0.0",
+  "description": "Module to access raspberry's gpio pins",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "raspberry",
+    "gpio",
+    "pin"
+  ],
+  "author": "Danilo",
+  "license": "ISC"
+}
