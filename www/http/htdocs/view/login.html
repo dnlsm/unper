@@ -16,9 +16,9 @@
 	</div>
 
 	<div class='group input-group'>
-		<input class='form-control' placeholder='Password' type="passwd" ng-model='credentials.passwd'/>
+		<input class='form-control' placeholder='Password' type="password" ng-model='credentials.pwd'/>
 	</div>
-	<button class="btn btn-primary" ng-disabled='!credentials.user || !credentials.passwd' ng-click='login(credentials)'>
+	<button class="btn btn-primary" ng-disabled='!credentials.user || !credentials.pwd' ng-click='login(credentials)'>
 		Login
 	</button>
 </div>
