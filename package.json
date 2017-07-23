@@ -1,7 +1,7 @@
 {
-  "name": "web_server",
+  "name": "Unper",
   "version": "1.0.0",
-  "description": "Servidor Web do Unper",
+  "description": "Integração de perifericos gpio à web",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Teste\"",
@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/dnlsm/unper#readme",
   "dependencies": {
-    "express": "^4.15.3"
-    "ejs": "latest"
+    "ejs": "latest",
+    "express": "^4.15.3",
+    "morgan": "^1.8.2"
   },
   "devDependencies": {},
   "keywords": [
