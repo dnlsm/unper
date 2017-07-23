@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Teste\"",
-    "http": "node node_http.js",
-    "start": "node node_express.js"
+    "start": "node ./index.js"
   },
   "author": "Danilo",
   "license": "ISC",
@@ -15,11 +14,12 @@
     "url": "https://github.com/dnlsm/unper.git"
   },
   "bugs": {
-    "url": "https://github.com/dnlsm/unper_webserver/issues"
+    "url": "https://github.com/dnlsm/unper/issues"
   },
-  "homepage": "https://github.com/dnlsm/unper_webserver#readme",
+  "homepage": "https://github.com/dnlsm/unper#readme",
   "dependencies": {
     "express": "^4.15.3"
+    "ejs": "latest"
   },
   "devDependencies": {},
   "keywords": [
