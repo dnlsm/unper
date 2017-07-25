@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/dnlsm/unper#readme",
   "dependencies": {
+    "cookie-parser": "latest",
     "ejs": "latest",
     "express": "^4.15.3",
-    "morgan": "^1.8.2"
+    "express-session": "latest",
+    "morgan": "^1.8.2",
+    "mongoose":"latest"
   },
   "devDependencies": {},
   "keywords": [

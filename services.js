@@ -26,9 +26,10 @@ createServices = function (services) {
 		global[globalDescritor]['id'] = service.id
 		global[globalDescritor]['name'] = service.name
 		global[globalDescritor]['path'] = service.path
+		global[globalDescritor]['args'] = service.args
 
 		global[globalDescritor]['process']
-		global[globalDescritor]['start'] = function () { this.process = child_process.fork(this.path,[],[]) }
+		global[globalDescritor]['start'] = function () { this.process = child_process.fork(this.path, this.args,[]) }
 		global[globalDescritor]['stop']  = function () { this.process.kill() }
 		global[globalDescritor]['restart']  = function () { this.stop()
 															this.start() }
