@@ -1,8 +1,8 @@
 var UserModel = require('./models/user')
 
-var routes = function (app){
+var routes = function (app, passport){
 
-	app.get('/', function(req, res){
+	app.post('/login', passport.authenticate('local-login'), function(req, res){
 		res.send('Ok')
 	})
 
