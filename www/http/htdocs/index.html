@@ -11,15 +11,27 @@
 	<script src="js/controllers/devicesCtrl.js"></script>
 	<script src="js/services/devicesAPIService.js"></script>
 	<script src="js/services/loginAPIService.js"></script>
+	<script src="js/config/configValue.js"></script>
+
+	<script type="text/javascript">
+		angular.module('myApp').run(function(loginAPI){
+				console.log("status")
+				loginAPI.refreshStatus();
+			}
+		)
+	</script>
 
 <body>
 
-	<div>
-		<a class="btn btn-default navbar-btn" href="#/"> Home</a>
-		<a class="btn btn-default navbar-btn" href="#/login"> Login </a>
-		<a class="btn btn-default navbar-btn" href="#/devices"> Devices </a>
-		<a class="btn btn-default navbar-btn" href="#/about"> About </a>
-	</div>
+	<ul class="nav nav-tabs nav-justified">
+		<li role="presentation"><a href="#/"> Home</a></li>
+		<li role="presentation" ng-if="!isLogged"><a href="#/signup"> Signup </a></li>
+		<li role="presentation" ng-if="!isLogged"><a href="#/login" > Login </a></li>
+		<li role="presentation" ng-if="isLogged"><a href="#/devices"> Devices </a></li>
+		<li role="presentation"><a href="#/about"> About </a></li>
+		
+		<li role="presentation" ng-controller="loginCtrl" ng-click="logout()" ng-if="isLogged"><a> Logout</a></li>
+	</ul>
 
 	<div class='view jumbotron' id='main'>
 		<div class='container' ng-view >

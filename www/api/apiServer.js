@@ -11,39 +11,48 @@ var database = require('./config/database')
 var mongoose = require('mongoose')
 var passport = require('passport')
 
-mongoose.connect('mongodb://localhost:27017/Unper')
+mongoose.connect('mongodb://admin:eletro2016@localhost:27017/Unper', function (err){
+	if (err) return console.log(err)
+
+	// Seta header padrão do CORS
+	app.use(function(req,res, next){
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+		res.setHeader('Access-Control-Allow-Origin', req.headers.origin?req.headers.origin:'*')
+		res.setHeader('Access-Control-Allow-Credentials', 'true')
+		next()
+	})
 
 
+	// Middlewares
+	app.use(morgan('dev'))
 
-app.use(function(req,res, next){
-	res.setHeader('Access-Control-Allow-Origin', req.headers.origin?req.headers.origin:'*')
-	res.setHeader('Access-Control-Allow-Credentials', 'true')
-	next()
-})
+	app.use(cookieParser())
+	app.use(bodyParser.json())
 
-app.use(morgan('dev'))
-app.use(bodyParser())
-app.use("/login",function(req,res,next){
-	console.log('Interceptor:')
-	console.log(req.body)
-	next()
-})
-app.use(cookieParser())
-app.use(session({secret: 'string',
-				 saveUninitiilized: true,
-				 resave: true}))
-app.options('/login',function(req,res){
-	console.log('123 OPTIONS')
-	res.end()
-})
-app.use(passport.initialize())
-app.use(passport.session())
+	app.use(session({secret: 'string',
+					 saveUninitiilized: true,
+					 resave: true}))
 
-require('./config/passport')(passport)
+	app.use(passport.initialize())
+	app.use(passport.session())
 
-require('./app/routes')(app, passport)
+	// inicializa passport
+	require('./config/passport')(passport)
 
-app.listen(port, function(err){
-	if (!err) 
-		console.log("Server listen on port %s", port)
+	// inicializa rota de autenticação
+	var auth = express.Router()
+	require('./app/routes/auth')(auth, passport)
+	app.use('/auth',auth)
+
+	// inicializa rota da api
+	var api = express.Router()
+	require('./app/routes/api')(api, passport)
+	app.use('/', api)
+
+	
+	// inicia escuta do servidor
+	app.listen(port, function(err){
+		if (!err) 
+			console.log("Server listen on port %s", port)
+	})
 })
