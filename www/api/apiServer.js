@@ -11,7 +11,7 @@ var database = require('./config/database')
 var mongoose = require('mongoose')
 var passport = require('passport')
 
-mongoose.connect('mongodb://admin:eletro2016@localhost:27017/Unper', function (err){
+mongoose.connect('mongodb://localhost:27017/Unper', function (err){
 	if (err) return console.log(err)
 
 	// Seta header padrão do CORS
