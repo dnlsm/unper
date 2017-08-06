@@ -16,6 +16,9 @@
 	<script src="js/services/loginAPIService.js"></script>
 	<script src="js/config/configValue.js"></script>
 
+
+	<script src="//www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
 	<script type="text/javascript">
 		angular.module('myApp').run(function(loginAPI){
 				console.log("status")
@@ -27,7 +30,7 @@
 <body>
 
 
-			<nav class="navbar navbar-default navbar-fixed-top">
+			<nav class="navbar navbar-default">
 				<div class="container">
 					<div class="navbar-header">
 
@@ -56,7 +59,7 @@
 
 
 	<div id='main'>
-		<div class="jumbotron" ng-view >
+		<div class="jumbotron" ng-view>
 		</div>
 	</div>
 </body>

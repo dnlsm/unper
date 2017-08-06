@@ -1,4 +1,44 @@
 <div>
+
+
+	<script type="text/javascript">
+		console.log(1)
+
+		var init = function  () {
+			if (!('webkitSpeechRecognition' in window)){
+				console.log("Comandos de voz não suportados.");
+				documment.getElementById("status").innerHTML = "Status: Comandos de voz não suportados";
+			}
+			else {
+				var recognition = new webkitSpeechReconition();
+				recognition.lang = "pt-BR";
+				recognition.maxAlternatives = 1;
+			
+				recognition.onstart = fuction(){
+					document.getElementById("status").innerHTML = "Status: On Start Event";
+				}
+
+				recognition.onend = fuction(){
+					document.getElementById("status").innerHTML = "Status: On End Event";
+				}
+				recognition.onresult = function(status){
+					document.getElementbyId("responseDiv").innerHTML += status;
+				}
+
+				recognition.start();
+			}
+		}
+		console.log("init");
+		init()
+
+	</script>
+	<div id="status">
+		Status
+	</div>
+
+	<div id="responseDiv">
+	</div>
+
 	<table>
 		<tr>
 			<th>Periferal Name</th>
@@ -11,4 +51,5 @@
 			<td><input ng-click="changeValue(device)" ng-model="device.value" type="checkbox"/></td>
 		</tr>
 	</table>
+
 </div>

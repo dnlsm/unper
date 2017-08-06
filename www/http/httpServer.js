@@ -39,7 +39,10 @@ var getFile  = function (req, res, next){
 var finalize = function (req, res){
 	res.end();
 }
-
+app.use('/', function(req,res,next){
+	console.log(req.url)
+	next()
+})
 app.use('/styles',express.static(htdocsPath+"/styles"))
 app.use('/lib',express.static(htdocsPath+"/lib"))
 app.use('/js',express.static(htdocsPath+"/js"))

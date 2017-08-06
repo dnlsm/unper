@@ -34,7 +34,7 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 			$http.post(apiUrl + "/auth/login",
 					credentials).success(function(data){
 						if (data){
-							window.localStorage.setItem('token', data.token)
+							$rootScope.token = data.token
 							if (callback)
 								return callback(false, data.token)
 						}
@@ -53,6 +53,6 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 
 
 // Acessa
-angular.module('myApp').factory('token', function(){
-		return () => {return window.localStorage.getItem('token')}
+angular.module('myApp').factory('token', function($rootScope){
+		return () => {return $rootScope.token}
 })
