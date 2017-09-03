@@ -4,36 +4,35 @@
 	<script type="text/javascript">
 		console.log(1)
 
-		var init = function  () {
+		function init() {
 			if (!('webkitSpeechRecognition' in window)){
 				console.log("Comandos de voz não suportados.");
-				documment.getElementById("status").innerHTML = "Status: Comandos de voz não suportados";
+				document.getElementById("status").innerHTML = "Status: Comandos de voz não suportados";
 			}
 			else {
 				var recognition = new webkitSpeechReconition();
 				recognition.lang = "pt-BR";
 				recognition.maxAlternatives = 1;
 			
-				recognition.onstart = fuction(){
+				recognition.onstart = function(){
 					document.getElementById("status").innerHTML = "Status: On Start Event";
-				}
+				};
 
-				recognition.onend = fuction(){
+				recognition.onend = function(){
 					document.getElementById("status").innerHTML = "Status: On End Event";
-				}
+				};
 				recognition.onresult = function(status){
 					document.getElementbyId("responseDiv").innerHTML += status;
-				}
+				};
 
 				recognition.start();
 			}
 		}
-		console.log("init");
 		init()
 
 	</script>
 	<div id="status">
-		Status
+		Status:
 	</div>
 
 	<div id="responseDiv">
@@ -48,7 +47,7 @@
 		<tr ng-repeat="device in devices">
 			<td ng-bind="device.name"></td>
 			<td ng-bind="device.pin"></td>
-			<td><input ng-click="changeValue(device)" ng-model="device.value" type="checkbox"/></td>
+			<td><input ng-click="changeValue(device)" ng-model="device.value" type="checkbox" ng-if="device.type=='OUTPUT_BIN'"/></td>
 		</tr>
 	</table>
 

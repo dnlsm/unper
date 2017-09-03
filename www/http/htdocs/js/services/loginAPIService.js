@@ -7,12 +7,11 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 				console.log("Validating token")
 				$http.get(apiUrl + "/auth/validate?"+
 									"access_token=" + token()).then(function(response){
-										console.log("sim")
 										if (callback)
 											return callback(true)
 									},
 									function(response){
-										console.log("nao")
+
 										if (callback)
 											return callback(false)
 									})
@@ -32,19 +31,42 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 	// Loga na Api com as credentials do uuario
 		var login = function(credentials, callback){
 			$http.post(apiUrl + "/auth/login",
-					credentials).success(function(data){
-						if (data){
-							$rootScope.token = data.token
+					credentials)
+			.success(
+						function(data){
+							if (data){
+								$rootScope.token = data.token
+								if (callback)
+									return callback(false, data.token)
+							}
 							if (callback)
-								return callback(false, data.token)
+								return callback(true)
 						}
+					)
+		}
+
+
+		var signup = function(credentials, callback){
+			$http.post(apiUrl + "/auth/signup",
+					credentials)
+			.then(
+					function(response){
+						console.log("SIM SIM")
+						if (callback)
+							return callback(false)
+					},
+
+					function (response){
+						console.log("NAO NAO")
 						if (callback)
 							return callback(true)
-			})
+					}
+				)
 		}
 		
 		return {
 			login: login,
+			signup:signup,
 			validateToken: validateToken,
 			refreshStatus: refreshStatus
 		}

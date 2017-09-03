@@ -1,13 +1,20 @@
-angular.module('myApp').controller("devicesCtrl", function($scope, $http, devicesAPI){
+angular.module('myApp').controller("devicesCtrl",
+
+	function($scope, devicesAPI){
 
 		console.log("Devices controller........")
 
-		var loadDevices = function() {
+		function loadDevices() {
 				console.log("get devices........")
-				devicesAPI.getDevices(function(data){
-				if (data) $scope.devices = data
-			})
+
+				devicesAPI.getDevices(
+					function(data){
+						if (data) $scope.devices = data
+					}
+				)
 		}
+
 		loadDevices()
+
 	}
 );

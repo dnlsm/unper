@@ -3,7 +3,7 @@ var UserModel = require('../models/user')
 
 var routes = function (router, passport){
 
-	router.options('/login',function(req,res){
+	router.options('/*',function(req,res){
 		res.send("Ok")
 	})
 
@@ -20,6 +20,16 @@ var routes = function (router, passport){
 
 					return res.end()
 			})(req,res,next)
+	})
+
+	router.post('/signup', function (req, res, next){
+		passport.authenticate('local-signup', function (err, user, info){
+			if (user)
+				res.status(201)
+			else
+				res.status(403)
+			res.end()
+		})(req,res, next)
 	})
 
 	router.get('/:username/:password', function(req,res){

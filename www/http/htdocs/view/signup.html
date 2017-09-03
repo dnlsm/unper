@@ -1,0 +1,22 @@
+<form ng-submit="signup(credentials)" id="loginForm">
+	<div class="group"> 
+		<div class="alert alert-danger alert-dismissible" role="alert" ng-if="errSignup">
+			User already exists! Please chose another one!
+		</div>
+
+
+		<div class='group input-group'>
+			<span class='input-group-addon'>@</span>
+			<input class='form-control' placeholder='Username' type="text" ng-model='credentials.username'/>
+		</div>
+
+
+		<div class='group input-group'>
+			<input class='form-control' placeholder='Password' type="password" ng-model='credentials.password'/>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-disabled='!credentials.username || !credentials.password'>
+			Register
+		</button>
+
+	</div>
+</form>

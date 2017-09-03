@@ -18,6 +18,10 @@ angular.module('myApp').config(['$routeProvider',
 			templateUrl: '/view/about.html',
 			controller: 'aboutCtrl'
 		})
+		.when('/signup',{
+			templateUrl: '/view/signup.html',
+			controller: 'loginCtrl'
+		})
 	}
 
 ])
