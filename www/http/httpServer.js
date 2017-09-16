@@ -43,6 +43,8 @@ app.use('/', function(req,res,next){
 	console.log(req.url)
 	next()
 })
+
+app.use('/res',express.static(htdocsPath+"/res"))
 app.use('/styles',express.static(htdocsPath+"/styles"))
 app.use('/lib',express.static(htdocsPath+"/lib"))
 app.use('/js',express.static(htdocsPath+"/js"))

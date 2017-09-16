@@ -4,8 +4,9 @@ angular.module('myApp').controller("devicesCtrl",
 
 		console.log("Devices controller........")
 
-		function loadDevices() {
-				console.log("get devices........")
+
+		$scope.loadDevices = function () {
+				console.log("getting devices........")
 
 				devicesAPI.getDevices(
 					function(data){
@@ -14,7 +15,14 @@ angular.module('myApp').controller("devicesCtrl",
 				)
 		}
 
-		loadDevices()
-
+		$scope.triggerTypes = [
+									{name: 'Set High', value:'SET_TRIGGER'},
+									{name: 'Set Low' , value:'CLEAR_TRIGGER'},
+									{name: 'Toggle', value:'TOGGLE_TRIGGER'}
+								]
+								
+		$scope.setActive = function (item){
+			$scope.activeItem=item;
+		}
 	}
 );

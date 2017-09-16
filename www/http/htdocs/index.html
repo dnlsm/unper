@@ -6,7 +6,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.js"></script>
 
+	<script src="lib/jquery/jquery.min.js"></script>
+
 	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular-material/angular-material.min.js"></script>
 	<script src="lib/angular/angular-route.js"></script>
 	<script src="js/app.js"></script>
 
@@ -20,7 +23,6 @@
 	<script src="js/config/configValue.js"></script>
 
 
-	<script src="//www.WebRTC-Experiment.com/RecordRTC.js"></script>
 
 	<script type="text/javascript">
 		angular.module('myApp').run(function(loginAPI){
@@ -62,7 +64,7 @@
 
 
 	<div id='main'>
-		<div class="jumbotron" ng-view>
+		<div ng-view>
 		</div>
 	</div>
 </body>

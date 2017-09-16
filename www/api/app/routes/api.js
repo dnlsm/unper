@@ -1,5 +1,33 @@
-var devices = [{name: "LED", pin: 26, value: true},
-				{name: "LAMPADA", pin: 19, value: false}]
+var devices = 
+[
+	{
+		devName: 'Sala',
+		peripherals: [
+			{
+				name: 'Lampada',
+				class: 'LAMP'
+			}
+		]
+	},
+	{
+		devName: 'Cozinha',
+		peripherals: [
+			{
+				name: 'Ldr Dia',
+				class: 'LDR',
+				type: 'INPUT',
+				triggers:[
+					{
+						type: 'CLEAR_TRIGGER'
+					}
+				]
+			},
+			{
+				name: 'IR'
+			}
+		]
+	}
+]
 
 module.exports = function(router, passport){
 
