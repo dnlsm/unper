@@ -35,7 +35,12 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 			.success(
 						function(data){
 							if (data){
-								$rootScope.token = data.token
+								if (typeof(Storage) !== undefined) {
+	    								localStorage.setItem("token", data.token)
+								} else {
+									$rootScope.token = data.token
+								}
+
 								if (callback)
 									return callback(false, data.token)
 							}
@@ -76,5 +81,9 @@ angular.module('myApp').factory("loginAPI", function($rootScope, $http, apiUrl, 
 
 // Acessa
 angular.module('myApp').factory('token', function($rootScope){
-		return () => {return $rootScope.token}
+		return () => {	if (typeof(Storage) !== "undefined") 
+	    					return localStorage.getItem("token")
+					else
+						return $rootScope.token
+				}
 })

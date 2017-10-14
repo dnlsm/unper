@@ -20,24 +20,24 @@ createServices = function (services) {
 						"console.log('Command \"%s\" not found', command[0])\n"+
 				"}"
 	services.forEach(function(service){
-		let globalDescritor = service.id + 'Service'
+		let globalDescriptor = service.id + 'Service'
 
-		global[globalDescritor] = {}
-		global[globalDescritor]['id'] = service.id
-		global[globalDescritor]['name'] = service.name
-		global[globalDescritor]['path'] = service.path
-		global[globalDescritor]['args'] = service.args
+		global[globalDescriptor] = {}
+		global[globalDescriptor]['id'] = service.id
+		global[globalDescriptor]['name'] = service.name
+		global[globalDescriptor]['path'] = service.path
+		global[globalDescriptor]['args'] = service.args
 
-		global[globalDescritor]['process']
-		global[globalDescritor]['start'] = function () { this.process = child_process.fork(this.path, this.args,[]) }
-		global[globalDescritor]['stop']  = function () { this.process.kill() }
-		global[globalDescritor]['restart']  = function () { this.stop()
+		global[globalDescriptor]['process']
+		global[globalDescriptor]['start'] = function () { this.process = child_process.fork(this.path, this.args,[]) }
+		global[globalDescriptor]['stop']  = function () { this.process.kill() }
+		global[globalDescriptor]['restart']  = function () { this.stop()
 															this.start() }
 		switchFunc = switchFunc.replace('$ServicesCase', "case '"+service.id+"':\n$ServicesCase")
 	})
 
 	switchFunc = switchFunc.replace('$ServicesCase', '')
-	var servicesFunc = Function('command', switchFunc )
+	var servicesFunc = new Function('command', switchFunc )
 
 	return servicesFunc
 }

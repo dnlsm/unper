@@ -1,5 +1,9 @@
 <div>
-
+	<style>
+		.label : {
+			background-color = #ffffff;
+		}
+	</style>
 	<link rel="stylesheet" type="text/css" href="/lib/blaze/blaze.min.css">
 	<script type="text/javascript">
 		console.log(1)
@@ -30,77 +34,35 @@
 		}
 
 	</script>
-	<div id="status">
-		Status:
-	</div>
 
-	<button ng-click="loadDevices()">Refresh</button>
+	<button ng-click="loadDevices()">Refresh Data</button>
 
-	<div id="responseDiv">
-	</div>
+		<div class="c-card c-card--accordion u-high">
+			<div ng-repeat-start="peripheral in peripherals | orderBy:'perName' "></div>
 
-
-	<div class="c-tabs">
-		<!-- Prepara os headers -->
-		<div class="c-tabs__headings">
-				<div ng-repeat="device in devices" class="c-tab-heading" ng-class="{'c-tab-heading--active': activeItem === device}" ng-click="setActive(device)">
-							<span ng-bind="device.devName"></span>
+				<input type="checkbox" id="accordion-{{$index}}"/>
+			  	<label class="c-card__item " for="accordion-{{$index}}" ng-bind="peripheral.perName"></label>
+			  	<div class="c-card__item">
+						<div ng-if="peripheral.behavior === 'OUTPUT'">
+						
+						<label class="c-toggle c-toggle--success">
+						 Value : 
+						  <input type="checkbox" ng-model="peripheral.value" ng-change="switchVal(peripheral)">
+						  <div class="c-toggle__track">
+						    <div class="c-toggle__handle"></div>
+						  </div>
+						</label>
+						
+						</div>
+						<!--
+						<div ng-repeat-start="trigger in triggers | filter: {source : peripheral._id}"></div>
+							<select ng-select>
+							<span ng-model="trigger.trigType"></span>
+						<div ng-repeat-end> </div>
+						-->
 				</div>
+				
+			<div ng-repeat-end> </div>
+	
 		</div>
-
-
-
-		<!-- Prepara o conteúdo dos devices -->
-		<div ng-repeat="device in devices" class="c-tabs__tab" ng-class="{'c-tabs__tab--active': activeItem === device}">
-
-					<div class="c-card c-card--accordion u-high">
-
-
-						<!-- Mostra cada periférico como num itém do accordion -->
-						<div ng-repeat-start="peripheral in device.peripherals"></div>
-							<input type="checkbox" id="{{peripheral.name}}">
-							<label class="c-card__item" for="{{peripheral.name}}" ><span ng-bind="peripheral.name"></span></label>
-							<div class="c-card__item">
-								- Classe:<spen ng-bind="peripheral.class"> </spen>
-
-								<div ng-if="peripheral.type=='INPUT'">
-
-
-
-									<div ng-repeat="trigger in peripheral.triggers">
-										-   Operation:<select ng-model="trigger.type" ng-options="triggerType.value as triggerType.name for triggerType in triggerTypes">
-											<option value="">Select an Operation Mode</option>
-										</select>
-										-   Target <input type="text" ng-model="trigger.target" placeholder="Target"></input>
-										-   Delay  <input type="text" ng-model="trigger.delay" placeholder="Delay Time"></input>
-										-   Conditional <input type="text" ng-model="trigger.expression" placeholder="Conditional Expression"></input>
-									</div>
-								</div>
-
-
-								<div ng-if="peripheral.type=='OUTPUT'">
-
-										<!-- Controla a saída atual do periférico -->
-												<label class="c-toggle c-toggle--success">
-													OUTPUT:
-													<input type="checkbox" ng-model="peripheral.status">
-													<div class="c-toggle__track">
-												 		<div class="c-toggle__handle"></div>
-													</div>
-												</label>
-
-										<!-- Schedules -->
-												<div ng-repeat="schedule in peripheral.schedule">
-													<>
-												</div>
-								</div>
-							</div>
-						<div ng-repeat-end></div>
-
-
-
-					</div> <!-- fim accordion -->
-		</div> <!-- fim loop devices -->
-	</div>
-
 </div>

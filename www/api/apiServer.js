@@ -11,7 +11,9 @@ var database = require('./config/database')
 var mongoose = require('mongoose')
 var passport = require('passport')
 
+
 mongoose.connect('mongodb://localhost:27017/Unper', function (err){
+	var core = require('./app/core')
 	if (err) return console.log(err)
 
 	// Seta header padrão do CORS
@@ -24,10 +26,19 @@ mongoose.connect('mongodb://localhost:27017/Unper', function (err){
 
 
 	// Middlewares
+
+	app.use(bodyParser.urlencoded ({ extended:true}))
+
+	app.use(function (req,res,next){
+		console.log(req.body)
+		next()
+	})
+	
+	app.use(bodyParser.json())
 	app.use(morgan('dev'))
 
 	app.use(cookieParser())
-	app.use(bodyParser.json())
+
 
 	app.use(session({secret: 'string',
 					 saveUninitiilized: true,
